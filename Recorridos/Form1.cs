@@ -120,14 +120,12 @@ namespace Recorridos {
             MouseEventArgs ev = (MouseEventArgs)e;
 
             Graphics g = TableroPanel.CreateGraphics();
-            Console.WriteLine(MousePosition.X + " " + MousePosition.Y);
 
             float xOffset = TableroPanel.Width / tamano;
             float yOffset = TableroPanel.Height / tamano;
 
             int x = (int)Math.Ceiling(ev.X / xOffset) - 1;
             int y = (int)Math.Ceiling(ev.Y / yOffset) - 1;
-            Console.WriteLine(x + " " + y);
 
             String tipoNodo = getTextGroupBox(TipoNodo);
             int[] nodo = new int[2];
