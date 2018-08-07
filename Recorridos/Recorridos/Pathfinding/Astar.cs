@@ -91,7 +91,7 @@ namespace Recorridos.Recorridos.Pathfinding {
         public List<int> ReconstruirCamino(int[] vieneDesde) {
             List<int> camino = new List<int>();
             int actual = Destino;
-        Console.Write("Camino inverso: "):
+            Console.Write("Camino inverso: ");
             while (vieneDesde[actual] >= 0) {
                 Console.Write(actual + " " );
                 camino.Add(actual);
