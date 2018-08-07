@@ -12,12 +12,14 @@ namespace Recorridos.Recorridos.Graph {
         private int id;
         private int x, y;
 
-        public Nodo( int x, int y) {
+        public Nodo(int id, int x, int y) {
             this.x = x;
             this.y = y;
 
-            this.id = IDS++;
+            this.id = id;
         }
+
+
 
 
     }

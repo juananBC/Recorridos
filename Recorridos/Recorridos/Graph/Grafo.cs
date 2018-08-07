@@ -20,11 +20,10 @@ namespace Recorridos.Recorridos.Graph {
             for (int x = 0; x < numNodos; x++) {
                 for (int y = 0; y < numNodos; y++) {
                     this.aristas[x, y] = SIN_CONECTAR;
-                    Nodo nodo = new Nodo(x, y);
+                    Nodo nodo = new Nodo(nodos.Count+1, x, y);
                     this.nodos.Add(nodo);
                 }
             }
-
         }
 
         public void AddArista(int id1, int id2, float distancia) {
@@ -41,10 +40,20 @@ namespace Recorridos.Recorridos.Graph {
            return aristas[id1, id2]; 
         }
 
+        public Boolean IsConectados(int idNodo1, int idNodo2) {
+            return aristas[idNodo1, idNodo2] != SIN_CONECTAR;
+        }
 
+        public List<int> GetAdyacentes(int idNodo) {
+            List<int> adyacentes = new List<int>();
 
-
-
+            for (int i = 0; i < nodos.Count; i++) {
+                if (IsConectados(idNodo, i)) {
+                    adyacentes.Add(i);
+                }
+            }
+            return adyacentes;
+        }
     }
 
 }
