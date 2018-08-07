@@ -26,11 +26,11 @@
             this.TableroPanel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.tamanoTablero = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).BeginInit();
             this.SuspendLayout();
             // 
             // TableroPanel
@@ -70,20 +70,21 @@
             this.button3.Text = "Nodo origen";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // tamanoTablero
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown1.Location = new System.Drawing.Point(374, 402);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.ReadOnly = true;
-            this.numericUpDown1.Size = new System.Drawing.Size(51, 20);
-            this.numericUpDown1.TabIndex = 4;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.tamanoTablero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tamanoTablero.Location = new System.Drawing.Point(374, 402);
+            this.tamanoTablero.Name = "tamanoTablero";
+            this.tamanoTablero.ReadOnly = true;
+            this.tamanoTablero.Size = new System.Drawing.Size(51, 20);
+            this.tamanoTablero.TabIndex = 4;
+            this.tamanoTablero.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tamanoTablero.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
+            this.tamanoTablero.ValueChanged += new System.EventHandler(this.tamanoTablero_ValueChanged);
             // 
             // label1
             // 
@@ -124,14 +125,14 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.tamanoTablero);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.TableroPanel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,7 +143,7 @@
         private System.Windows.Forms.Panel TableroPanel;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown tamanoTablero;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
