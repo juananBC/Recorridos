@@ -5,6 +5,11 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private const string ORIGEN = "Origen";
+        private const string DESTINO = "Destino";
+        private const string OBSTACULO = "Obstáculo";
+
+
         /// <summary>
         /// Limpiar los recursos que se estén usando.
         /// </summary>
@@ -24,13 +29,16 @@
         /// </summary>
         private void InitializeComponent() {
             this.TableroPanel = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.tamanoTablero = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.OrigenRB = new System.Windows.Forms.RadioButton();
+            this.DestinoRB = new System.Windows.Forms.RadioButton();
+            this.ObstaculoRB = new System.Windows.Forms.RadioButton();
+            this.TipoNodo = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).BeginInit();
+            this.TipoNodo.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableroPanel
@@ -48,27 +56,6 @@
             this.TableroPanel.Click += new System.EventHandler(this.TableroPanel_Click);
             this.TableroPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.TableroPanel.Resize += new System.EventHandler(this.TableroPanel_Resize);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(152, 399);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Nodo destino";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(43, 399);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Nodo origen";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // tamanoTablero
             // 
@@ -95,7 +82,6 @@
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Tamaño del tablero";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -117,22 +103,68 @@
             this.button4.Text = "Iniciar";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // OrigenRB
+            // 
+            this.OrigenRB.AutoSize = true;
+            this.OrigenRB.Location = new System.Drawing.Point(5, 19);
+            this.OrigenRB.Name = "OrigenRB";
+            this.OrigenRB.Size = new System.Drawing.Size(56, 17);
+            this.OrigenRB.TabIndex = 8;
+            this.OrigenRB.Text = ORIGEN;
+            this.OrigenRB.UseVisualStyleBackColor = true;
+            // 
+            // DestinoRB
+            // 
+            this.DestinoRB.AutoSize = true;
+            this.DestinoRB.Location = new System.Drawing.Point(67, 19);
+            this.DestinoRB.Name = "DestinoRB";
+            this.DestinoRB.Size = new System.Drawing.Size(61, 17);
+            this.DestinoRB.TabIndex = 9;
+            this.DestinoRB.Text = DESTINO;
+            this.DestinoRB.UseVisualStyleBackColor = true;
+            // 
+            // ObstaculoRB
+            // 
+            this.ObstaculoRB.AutoSize = true;
+            this.ObstaculoRB.Checked = true;
+            this.ObstaculoRB.Location = new System.Drawing.Point(134, 19);
+            this.ObstaculoRB.Name = "ObstaculoRB";
+            this.ObstaculoRB.Size = new System.Drawing.Size(73, 17);
+            this.ObstaculoRB.TabIndex = 10;
+            this.ObstaculoRB.TabStop = true;
+            this.ObstaculoRB.Text = OBSTACULO;
+            this.ObstaculoRB.UseVisualStyleBackColor = true;
+            // 
+            // TipoNodo
+            // 
+            this.TipoNodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TipoNodo.Controls.Add(this.ObstaculoRB);
+            this.TipoNodo.Controls.Add(this.DestinoRB);
+            this.TipoNodo.Controls.Add(this.OrigenRB);
+            this.TipoNodo.Location = new System.Drawing.Point(22, 383);
+            this.TipoNodo.Name = "TipoNodo";
+            this.TipoNodo.Size = new System.Drawing.Size(242, 55);
+            this.TipoNodo.TabIndex = 11;
+            this.TipoNodo.TabStop = false;
+            this.TipoNodo.Text = "Tipo de nodo";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TipoNodo);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tamanoTablero);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.TableroPanel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).EndInit();
+            this.TipoNodo.ResumeLayout(false);
+            this.TipoNodo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,12 +173,14 @@
         #endregion
 
         private System.Windows.Forms.Panel TableroPanel;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.NumericUpDown tamanoTablero;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.RadioButton OrigenRB;
+        private System.Windows.Forms.RadioButton DestinoRB;
+        private System.Windows.Forms.RadioButton ObstaculoRB;
+        private System.Windows.Forms.GroupBox TipoNodo;
     }
 }
 

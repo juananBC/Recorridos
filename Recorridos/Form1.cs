@@ -20,7 +20,10 @@ namespace Recorridos {
         private int tamano;
         private Tablero tablero;
 
-        Pen pincel = new Pen(Color.Black, 2);
+        private const int GROSOR_PINCEL = 2;
+        private const int OFFSET_PINCEL = GROSOR_PINCEL / 2;
+
+        Pen pincel = new Pen(Color.Black, GROSOR_PINCEL);
         SolidBrush brochaNegra = new SolidBrush(Color.Black);
         SolidBrush brochaAzul = new SolidBrush(Color.Blue);
         SolidBrush brochaVerde = new SolidBrush(Color.Green);
@@ -38,20 +41,6 @@ namespace Recorridos {
         private void Form1_Load(object sender, EventArgs e) {
             DibujarTablero();
         }
-
-        private void PintarNodo(Graphics g, int centroX, int centroY) {
-
-            SolidBrush brocha = new SolidBrush(Color.Blue);
-
-
-            float tam = RADIO_NODO * (TableroPanel.Width / TableroPanel.Height);
-
-            float x = centroX - tam / 2;
-            float y = centroY - tam / 2;
-
-            g.FillEllipse(brocha, x, y, tam, tam);
-        }
-
      
         /// <summary>
         /// Dibuja el tablero del tamaño seleccionado
@@ -90,12 +79,14 @@ namespace Recorridos {
             float ancho = width / tamano;
             float alto = height / tamano;
 
-            
-
-
             for (int x = 0; x < tamano; x++) {
                 for (int y = 0; y < tamano; y++) {
                     Tablero.Estado estado = tablero.GetEstado(x, y);
+
+                    int xInicio = (int)(x * ancho + OFFSET_PINCEL);
+                    int yInicio = (int)(y * alto + OFFSET_PINCEL);
+                    int anchoOffset = (int)(ancho - OFFSET_PINCEL);
+                    int altoOffset = (int)(alto - OFFSET_PINCEL);
 
                     switch (estado) {
                         case Tablero.Estado.libre:
@@ -103,15 +94,15 @@ namespace Recorridos {
                             break;
 
                         case Tablero.Estado.ocupado:
-                            g.FillRectangle(brochaNegra, x * ancho, y * alto, ancho, alto);
+                            g.FillRectangle(brochaNegra, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
 
                         case Tablero.Estado.origen:
-                            g.FillRectangle(brochaVerde, x * ancho, y * alto, ancho, alto);
+                            g.FillRectangle(brochaVerde, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
 
                         case Tablero.Estado.destino:
-                            g.FillRectangle(brochaRoja, x * ancho, y * alto, ancho, alto);
+                            g.FillRectangle(brochaRoja, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
                     }
                 }
@@ -124,14 +115,7 @@ namespace Recorridos {
             RepaintTablero();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e) {
-
-        }
-
+ 
         private void TableroPanel_Click(object sender, EventArgs e) {
             MouseEventArgs ev = (MouseEventArgs)e;
 
@@ -145,26 +129,49 @@ namespace Recorridos {
             int y = (int)Math.Ceiling(ev.Y / yOffset) - 1;
             Console.WriteLine(x + " " + y);
 
-            if(tablero.GetEstado(x, y) == Tablero.Estado.ocupado)
-                tablero.SetEstado(x, y, Tablero.Estado.libre);
-            else
-                tablero.SetEstado(x, y, Tablero.Estado.ocupado);
+            String tipoNodo = getTextGroupBox(TipoNodo);
+            int[] nodo = new int[2];
+            nodo[0] = x;
+            nodo[1] = y;
+
+            switch (tipoNodo) {
+                case ORIGEN:
+                    if(tablero.Origen != null && tablero.Origen[0] >= 0)
+                        tablero.SetEstado(tablero.Origen[0], tablero.Origen[1], Tablero.Estado.libre);
+
+                    tablero.Origen = nodo;
+                    tablero.SetEstado(x, y, Tablero.Estado.origen);
+
+                    break;
+
+                case DESTINO:
+                    if (tablero.Destino != null && tablero.Destino[0] >= 0)
+                        tablero.SetEstado(tablero.Destino[0], tablero.Destino[1], Tablero.Estado.libre);
+
+                    tablero.Destino = nodo;
+                    tablero.SetEstado(x, y, Tablero.Estado.destino);
+                    break;
+
+                case OBSTACULO:
+                    if (tablero.GetEstado(x, y) == Tablero.Estado.ocupado)
+                        tablero.SetEstado(x, y, Tablero.Estado.libre);
+                    else
+                        tablero.SetEstado(x, y, Tablero.Estado.ocupado);
+                    break;
+
+                default:
+                    tablero.SetEstado(x, y, Tablero.Estado.libre);
+                    break;
+            }
+            
 
             RepaintTablero();
 
-          //  PintarNodo(g, ev.X, ev.Y);
         }
 
-        private void panel1_Paint_1(object sender, PaintEventArgs e) {
 
-        }
-
-        private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e) {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e) {
-
+        private String getTextGroupBox(GroupBox gb) {
+            return gb.Controls.OfType<RadioButton>().FirstOrDefault(rb => rb.Checked).Text; 
         }
 
         private void TableroPanel_Resize(object sender, EventArgs e) {
@@ -183,5 +190,7 @@ namespace Recorridos {
             tamano = Decimal.ToInt32(tamanoTablero.Value);
             DibujarTablero();
         }
+
+        
     }
 }

@@ -11,9 +11,13 @@ namespace Recorridos.Recorridos.Entorno {
 
         private Estado[,] casillas;
 
+        // Nodo de origen y de destino
+        private int[] origen;
+        private int[] destino;
+
         public Tablero(int ancho, int alto) {
             casillas = new Estado[ancho, alto];
-
+            
             for (int x = 0; x < ancho; x++) {
                 for (int y = 0; y < alto; y++) {
                     casillas[x, y] = Estado.libre;
@@ -38,6 +42,18 @@ namespace Recorridos.Recorridos.Entorno {
             get { return largo; }
             set { this.largo = value; }
         }
+
+        public int[] Origen {
+            get { return origen; }
+            set { origen = value; }
+        }
+
+        public int[] Destino {
+            get { return destino; }
+            set { destino = value; }
+        }
+
+
 
     }
 }
