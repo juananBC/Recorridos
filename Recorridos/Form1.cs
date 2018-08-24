@@ -1,4 +1,6 @@
 ﻿using Recorridos.Recorridos.Entorno;
+using Recorridos.Recorridos.Graph;
+using Recorridos.Recorridos.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,7 +61,7 @@ namespace Recorridos {
 
             for (int x = 0; x < tamano; x++) {
                 for (int y = 0; y < tamano; y++) {
-                    tablero.SetEstado(x, y, Tablero.Estado.libre);
+                    tablero.SetEstado(x, y, Estado.libre);
                     g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                 }
             }
@@ -81,7 +83,7 @@ namespace Recorridos {
 
             for (int x = 0; x < tamano; x++) {
                 for (int y = 0; y < tamano; y++) {
-                    Tablero.Estado estado = tablero.GetEstado(x, y);
+                    Estado estado = tablero.GetEstado(x, y);
 
                     int xInicio = (int)(x * ancho + OFFSET_PINCEL);
                     int yInicio = (int)(y * alto + OFFSET_PINCEL);
@@ -89,20 +91,24 @@ namespace Recorridos {
                     int altoOffset = (int)(alto - OFFSET_PINCEL);
 
                     switch (estado) {
-                        case Tablero.Estado.libre:
+                        case Estado.libre:
                             g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                             break;
 
-                        case Tablero.Estado.ocupado:
+                        case Estado.ocupado:
                             g.FillRectangle(brochaNegra, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
 
-                        case Tablero.Estado.origen:
+                        case Estado.origen:
                             g.FillRectangle(brochaVerde, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
 
-                        case Tablero.Estado.destino:
+                        case Estado.destino:
                             g.FillRectangle(brochaRoja, xInicio, yInicio, anchoOffset, altoOffset);
+                            break;
+
+                        case Estado.visitado:
+                            g.FillRectangle(brochaAzul, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
                     }
                 }
@@ -127,6 +133,10 @@ namespace Recorridos {
             int x = (int)Math.Ceiling(ev.X / xOffset) - 1;
             int y = (int)Math.Ceiling(ev.Y / yOffset) - 1;
 
+            Console.WriteLine("Click en " + x + " " + y);
+
+            tablero.QuitarRecorrido();
+
             String tipoNodo = getTextGroupBox(TipoNodo);
             int[] nodo = new int[2];
             nodo[0] = x;
@@ -134,31 +144,36 @@ namespace Recorridos {
 
             switch (tipoNodo) {
                 case ORIGEN:
-                    if(tablero.Origen != null && tablero.Origen[0] >= 0)
-                        tablero.SetEstado(tablero.Origen[0], tablero.Origen[1], Tablero.Estado.libre);
+                    // Resetea el origen anterior
+                    if (tablero.Origen >= 0) {
+                        int origen = tablero.Origen;
+                        tablero.SetEstado(tablero.GetX(origen), tablero.GetY(origen), Estado.libre);
+                    }
 
-                    tablero.Origen = nodo;
-                    tablero.SetEstado(x, y, Tablero.Estado.origen);
+                    tablero.Origen = tablero.GetId(x, y);
+                    tablero.SetEstado(x, y, Estado.origen);
 
                     break;
 
                 case DESTINO:
-                    if (tablero.Destino != null && tablero.Destino[0] >= 0)
-                        tablero.SetEstado(tablero.Destino[0], tablero.Destino[1], Tablero.Estado.libre);
+                    if (tablero.Destino >= 0) {
+                        int destino = tablero.Destino;
+                        tablero.SetEstado(tablero.GetX(destino), tablero.GetY(destino), Estado.libre);
+                    }
 
-                    tablero.Destino = nodo;
-                    tablero.SetEstado(x, y, Tablero.Estado.destino);
+                    tablero.Destino = tablero.GetId(x, y);
+                    tablero.SetEstado(x, y, Estado.destino);
                     break;
 
                 case OBSTACULO:
-                    if (tablero.GetEstado(x, y) == Tablero.Estado.ocupado)
-                        tablero.SetEstado(x, y, Tablero.Estado.libre);
+                    if (tablero.GetEstado(x, y) == Estado.ocupado)
+                        tablero.SetEstado(x, y, Estado.libre);
                     else
-                        tablero.SetEstado(x, y, Tablero.Estado.ocupado);
+                        tablero.SetEstado(x, y, Estado.ocupado);
                     break;
 
                 default:
-                    tablero.SetEstado(x, y, Tablero.Estado.libre);
+                    tablero.SetEstado(x, y, Estado.libre);
                     break;
             }
             
@@ -189,6 +204,25 @@ namespace Recorridos {
             DibujarTablero();
         }
 
-        
+        private void Click_iniciarRecorrido(object sender, EventArgs e) {
+            tablero.QuitarRecorrido();
+
+            if (tablero.Origen >= 0 && tablero.Destino >= 0) {
+                Controlador controlador = new Controlador(tablero);
+                List<int> camino = controlador.BuscarCamino();
+
+                for (int i = 1; i < camino.Count - 1; i++) {
+                    tablero.SetEstado(camino[i], Estado.visitado);
+                }
+            }
+
+            RepaintTablero();
+        }
+
+        private void Reiniciar_Click(object sender, EventArgs e) {
+            tablero.Liberar();
+            RepaintTablero();
+        }
     }
+
 }

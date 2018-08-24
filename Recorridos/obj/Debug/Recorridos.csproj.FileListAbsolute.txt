@@ -1,10 +1,10 @@
-C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.exe.config
-C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.exe
-C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.pdb
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.csprojAssemblyReference.cache
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.Form1.resources
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.Properties.Resources.resources
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.csproj.GenerateResource.cache
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.csproj.CoreCompileInputs.cache
+C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.exe.config
+C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.exe
+C:\Users\JNBN007\Desktop\Recorridos\Recorridos\bin\Debug\Recorridos.pdb
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.exe
 C:\Users\JNBN007\Desktop\Recorridos\Recorridos\obj\Debug\Recorridos.pdb

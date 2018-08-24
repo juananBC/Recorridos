@@ -92,6 +92,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Reiniciar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Reiniciar_Click);
             // 
             // button4
             // 
@@ -102,6 +103,7 @@
             this.button4.TabIndex = 7;
             this.button4.Text = "Iniciar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Click_iniciarRecorrido);
             // 
             // OrigenRB
             // 
@@ -110,7 +112,7 @@
             this.OrigenRB.Name = "OrigenRB";
             this.OrigenRB.Size = new System.Drawing.Size(56, 17);
             this.OrigenRB.TabIndex = 8;
-            this.OrigenRB.Text = ORIGEN;
+            this.OrigenRB.Text = "Origen";
             this.OrigenRB.UseVisualStyleBackColor = true;
             // 
             // DestinoRB
@@ -120,7 +122,7 @@
             this.DestinoRB.Name = "DestinoRB";
             this.DestinoRB.Size = new System.Drawing.Size(61, 17);
             this.DestinoRB.TabIndex = 9;
-            this.DestinoRB.Text = DESTINO;
+            this.DestinoRB.Text = "Destino";
             this.DestinoRB.UseVisualStyleBackColor = true;
             // 
             // ObstaculoRB
@@ -132,7 +134,7 @@
             this.ObstaculoRB.Size = new System.Drawing.Size(73, 17);
             this.ObstaculoRB.TabIndex = 10;
             this.ObstaculoRB.TabStop = true;
-            this.ObstaculoRB.Text = OBSTACULO;
+            this.ObstaculoRB.Text = "Obstáculo";
             this.ObstaculoRB.UseVisualStyleBackColor = true;
             // 
             // TipoNodo

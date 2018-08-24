@@ -11,19 +11,31 @@ namespace Recorridos.Recorridos.Graph {
         public Lista() {
         }
 
-        public void AddArista(Nodo n1, Nodo n2) {
+
+
+        public override void AddArista(int id1, int id2, float distancia) {
             throw new NotImplementedException();
         }
 
-        public float Distancia(Nodo n1, Nodo n2) {
+        public override float Distancia(int id1, int id2) {
             throw new NotImplementedException();
         }
 
-        public List<Nodo> GetVecinos(Nodo nodo) {
+        public override List<int> GetVecinos(int idNodo) {
             throw new NotImplementedException();
         }
 
-        public void RemoveArisa(Nodo n1, Nodo n2) {
+  
+
+        public override bool IsConectado(int id1, int id2) {
+            throw new NotImplementedException();
+        }
+
+        public override void RemoveArista(Nodo n1, Nodo n2) {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString() {
             throw new NotImplementedException();
         }
     }

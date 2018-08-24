@@ -54,11 +54,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recorridos\Entorno\Tablero.cs" />
+    <Compile Include="Recorridos\Graph\Estado.cs" />
     <Compile Include="Recorridos\Graph\Grafo.cs" />
     <Compile Include="Recorridos\Graph\Lista.cs" />
     <Compile Include="Recorridos\Graph\Matriz.cs" />
     <Compile Include="Recorridos\Graph\Nodo.cs" />
-    <Compile Include="Recorridos\Pathfinding\Astar.cs" />
+    <Compile Include="Recorridos\Pathfinding\A_Star.cs" />
+    <Compile Include="Recorridos\Pathfinding\Controlador.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
