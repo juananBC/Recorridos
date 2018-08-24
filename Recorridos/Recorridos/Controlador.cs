@@ -11,6 +11,7 @@ namespace Recorridos.Recorridos.Pathfinding {
 
         private Grafo grafo;
         private Tablero tablero;
+        private A_Star pathfinding;
 
         public Controlador(Tablero tablero) {
             this.tablero = tablero;
@@ -51,12 +52,17 @@ namespace Recorridos.Recorridos.Pathfinding {
 
         public List<int> BuscarCamino() {
 
-            A_Star pathfinding = new A_Star(tablero.Origen, tablero.Destino, grafo);
+            pathfinding = new A_Star(tablero.Origen, tablero.Destino, grafo);
             pathfinding.Run();
             pathfinding.PrintCamino();
 
             List<int> recorrido  = pathfinding.Camino;
             return recorrido;
+        }
+
+
+        public HashSet<int> GetEvaluados() {
+            return pathfinding.Evaluados;
         }
     }
 }

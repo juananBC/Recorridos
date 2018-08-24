@@ -25,7 +25,7 @@ namespace Recorridos.Recorridos.Pathfinding {
             this.Destino = destino;
             this.Grafo = grafo;
             this.NumNodos = grafo.Nodos.Length;
-
+           
             G = new float[NumNodos];
             F = new float[NumNodos];
 
@@ -61,7 +61,8 @@ namespace Recorridos.Recorridos.Pathfinding {
             F[Origen] = Heuristica(Origen, Destino);
 
             while (descubiertos.Count != 0) {
-                int actual = getMenorCoste(descubiertos);
+                int actual = getMenorCosteF(descubiertos);
+
                 if (actual == Destino) break;
 
                 descubiertos.Remove(actual);
@@ -93,8 +94,6 @@ namespace Recorridos.Recorridos.Pathfinding {
         /// <summary>
         /// Reconstruye el camino desde el nodo destino hasta el nodo origen.
         /// </summary>
-        /// <param name="vieneDesde"></param>
-        /// <returns></returns>
         public void ReconstruirCamino() {
             Camino = new List<int>();
 
@@ -112,10 +111,14 @@ namespace Recorridos.Recorridos.Pathfinding {
 
 
         public void PrintCamino() {
+            if (camino.Count <= 1) {
+                Console.WriteLine("No hay camino posible.");
+                return;
+            }
+
             String msg = "El camino es: ";
             for (int i = 0; i < Camino.Count; i++) 
-                msg += Camino[i] + ", ";
-            
+                msg += Camino[i] + ", ";            
             Console.WriteLine(msg);
         }
 
@@ -133,9 +136,7 @@ namespace Recorridos.Recorridos.Pathfinding {
         /// <summary>
         /// Obtiene el nodo con el menor coste f. Seria f = g + heuristica.
         /// </summary>
-        /// <param name="set"></param>
-        /// <returns></returns>
-        private int getMenorCoste(HashSet<int> set) {
+        private int getMenorCosteF(HashSet<int> set) {
             int menor = Destino;
             foreach (int v in set) {
                 if (F[v] < F[menor])

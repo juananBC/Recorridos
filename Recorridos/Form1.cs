@@ -27,9 +27,10 @@ namespace Recorridos {
 
         Pen pincel = new Pen(Color.Black, GROSOR_PINCEL);
         SolidBrush brochaNegra = new SolidBrush(Color.Black);
-        SolidBrush brochaAzul = new SolidBrush(Color.Blue);
-        SolidBrush brochaVerde = new SolidBrush(Color.Green);
-        SolidBrush brochaRoja = new SolidBrush(Color.Red);
+        SolidBrush brochaAzul = new SolidBrush(Color.FromArgb(0, 102, 204));
+        SolidBrush brochaVerde = new SolidBrush(Color.FromArgb(77, 255, 77));
+        SolidBrush brochaRoja = new SolidBrush(Color.FromArgb(255, 92, 51));
+        SolidBrush brochaCeleste = new SolidBrush(Color.FromArgb(153, 204, 255));
 
 
         public Form1() {
@@ -109,6 +110,10 @@ namespace Recorridos {
 
                         case Estado.visitado:
                             g.FillRectangle(brochaAzul, xInicio, yInicio, anchoOffset, altoOffset);
+                            break;
+                            
+                        case Estado.evaluado:
+                            g.FillRectangle(brochaCeleste, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
                     }
                 }
@@ -208,12 +213,26 @@ namespace Recorridos {
             tablero.QuitarRecorrido();
 
             if (tablero.Origen >= 0 && tablero.Destino >= 0) {
+
                 Controlador controlador = new Controlador(tablero);
                 List<int> camino = controlador.BuscarCamino();
 
+                // Marca los nodos que forman el camino
                 for (int i = 1; i < camino.Count - 1; i++) {
                     tablero.SetEstado(camino[i], Estado.visitado);
                 }
+
+                // Marca los nodos que se han visitado
+                HashSet<int> evaluados = controlador.GetEvaluados();
+                Console.WriteLine("EVAL: " + evaluados.Count);
+                for (int i = 0; i < evaluados.Count; i++) {
+                    int id = evaluados.ElementAt(i);
+                    Console.Write("VISITA: " + id);
+                    if(tablero.GetEstado(id) == Estado.libre)
+                    tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
+                }
+
+
             }
 
             RepaintTablero();

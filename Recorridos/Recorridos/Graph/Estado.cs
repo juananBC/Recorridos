@@ -5,5 +5,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Recorridos.Recorridos.Graph {    
-   public enum Estado { libre, ocupado, visitado, origen, destino };    
+   public enum Estado { libre, ocupado, visitado, origen, destino, evaluado };    
 }

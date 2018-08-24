@@ -44,11 +44,6 @@ namespace Recorridos.Recorridos.Entorno {
 
         public void SetEstado(int x, int y, Estado estado) {
              casillas[x, y] = estado;
-            switch (estado) {
-                case Estado.ocupado:
-                    
-                    break;
-            }
         }
 
         public void SetEstado(int id, Estado estado) {

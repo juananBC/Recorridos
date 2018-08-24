@@ -60,7 +60,7 @@
     <Compile Include="Recorridos\Graph\Matriz.cs" />
     <Compile Include="Recorridos\Graph\Nodo.cs" />
     <Compile Include="Recorridos\Pathfinding\A_Star.cs" />
-    <Compile Include="Recorridos\Pathfinding\Controlador.cs" />
+    <Compile Include="Recorridos\Controlador.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
