@@ -18,28 +18,26 @@ namespace Recorridos {
         private const int DEFAULT_Y = 10;
         private const int RADIO_NODO = 20;
         private static Color COLOR_TABLERO = Color.White;
-
-        private bool isPressed = false;
-
-        private int tamano;
-        private Tablero tablero;
-
         private const int GROSOR_PINCEL = 1;
         private const int OFFSET_PINCEL = GROSOR_PINCEL / 2;
 
-        Pen pincel = new Pen(Color.Black, GROSOR_PINCEL);
-        SolidBrush brochaNegra = new SolidBrush(Color.Black);
-        SolidBrush brochaAzul = new SolidBrush(Color.FromArgb(153, 204, 255));
-        SolidBrush brochaVerde = new SolidBrush(Color.FromArgb(77, 255, 77));
-        SolidBrush brochaRoja = new SolidBrush(Color.FromArgb(255, 92, 51));
-        SolidBrush brochaCeleste = new SolidBrush(Color.FromArgb(230, 242, 255));
+        private static Pen pincel = new Pen(Color.Black, GROSOR_PINCEL);
+        private static SolidBrush brochaNegra = new SolidBrush(Color.Black);
+        private static SolidBrush brochaAzul = new SolidBrush(Color.FromArgb(153, 204, 255));
+        private static SolidBrush brochaVerde = new SolidBrush(Color.FromArgb(77, 255, 77));
+        private static SolidBrush brochaRoja = new SolidBrush(Color.FromArgb(255, 92, 51));
+        private static SolidBrush brochaCeleste = new SolidBrush(Color.FromArgb(230, 242, 255));
 
+        private int tamano;
+        private bool isPressed;
+        private Tablero tablero;
 
         public Form1() {
             InitializeComponent();
 
             tamano = Decimal.ToInt32(tamanoTablero.Value);
             tablero = new Tablero(tamano, tamano);
+            isPressed = false;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -105,7 +103,7 @@ namespace Recorridos {
                             g.FillRectangle(brochaCeleste, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
                     }
-
+                    // Dibuja el borde del rectangulo
                     g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                 }
             }
@@ -176,7 +174,6 @@ namespace Recorridos {
 
             // Obliga a repintar el tablero. Llama al metodo Paint del panel.
            this.TableroPanel.Invalidate();
-
         }
 
 
@@ -185,16 +182,12 @@ namespace Recorridos {
         }
 
         private void TableroPanel_Resize(object sender, EventArgs e) {
-
-            // RepaintTablero();
             this.TableroPanel.Invalidate();
         }
 
         /// <summary>
         /// Establece el tamaño del tablero. El valor mínimo es un tablero de 4x4.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void tamanoTablero_ValueChanged(object sender, EventArgs e) {
             int aux = Decimal.ToInt32(tamanoTablero.Value);
             if (aux <= 4) tamanoTablero.Value = 4;
@@ -224,19 +217,13 @@ namespace Recorridos {
                     if(tablero.GetEstado(id) == Estado.libre)
                         tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
                 }
-
-
             }
 
-
-            // RepaintTablero();
             this.TableroPanel.Invalidate();
         }
 
         private void Reiniciar_Click(object sender, EventArgs e) {
             tablero.Liberar();
-
-            // RepaintTablero();
             this.TableroPanel.Invalidate();
         }
 
@@ -265,12 +252,8 @@ namespace Recorridos {
                     if (tablero.GetEstado(id) == Estado.libre)
                         tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
                 }
-
-
             }
 
-
-            // RepaintTablero();
             this.TableroPanel.Invalidate();
         }
 
