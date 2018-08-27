@@ -129,6 +129,8 @@ namespace Recorridos {
         private void TableroPanel_Click(object sender, EventArgs e) {
             MouseEventArgs ev = (MouseEventArgs)e;
 
+            if (ev.Button != MouseButtons.Left) return;
+
             //Graphics g = TableroPanel.CreateGraphics();
 
             float xOffset = TableroPanel.Width / tamano;
@@ -256,7 +258,7 @@ namespace Recorridos {
 
 
 
-        private void TableroPanel_MouseClick(object sender, EventArgs e) {
+        private void MarcarRecorrido(object sender, EventArgs e) {
             Console.WriteLine("ENTER");
             if (!isPressed) return;
 
@@ -290,7 +292,40 @@ namespace Recorridos {
             this.TableroPanel.Invalidate();
         }
 
-        
+        private void TableroPanel_MouseDown(object sender, MouseEventArgs e) {
+            isPressed = true;
+        }
+
+
+        private void TableroPanel_MouseUp(object sender, MouseEventArgs e) {
+            isPressed = false;
+            TableroPanel_Click(sender, e);
+
+        }
+
+
+        private void MarcarObstaculo(object sender, MouseEventArgs e) {
+            if (!isPressed) return;
+
+            MouseEventArgs ev = (MouseEventArgs)e;
+            if (ev.Button != MouseButtons.Right) return;
+
+            float xOffset = TableroPanel.Width / tamano;
+            float yOffset = TableroPanel.Height / tamano;
+
+            int x = (int)Math.Ceiling(ev.X / xOffset) - 1;
+            int y = (int)Math.Ceiling(ev.Y / yOffset) - 1;
+
+          
+           tablero.SetEstado(x, y, Estado.ocupado);
+
+            this.TableroPanel.Invalidate();
+        }
+
+        private void MarcarRecorrido(object sender, MouseEventArgs e) {
+
+        }
+
     }
 
 }

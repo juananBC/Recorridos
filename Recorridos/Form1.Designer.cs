@@ -55,9 +55,10 @@ namespace Recorridos {
             this.TableroPanel.Name = "TableroPanel";
             this.TableroPanel.Size = new System.Drawing.Size(776, 352);
             this.TableroPanel.TabIndex = 0;
-            this.TableroPanel.Click += new System.EventHandler(this.TableroPanel_Click);
             this.TableroPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            this.TableroPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseClick);
+            this.TableroPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseDown);
+            this.TableroPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MarcarObstaculo);
+            this.TableroPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseUp);
             this.TableroPanel.Resize += new System.EventHandler(this.TableroPanel_Resize);
             // 
             // tamanoTablero
