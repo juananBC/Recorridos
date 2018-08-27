@@ -24,15 +24,15 @@ namespace Recorridos {
         private int tamano;
         private Tablero tablero;
 
-        private const int GROSOR_PINCEL = 2;
+        private const int GROSOR_PINCEL = 1;
         private const int OFFSET_PINCEL = GROSOR_PINCEL / 2;
 
         Pen pincel = new Pen(Color.Black, GROSOR_PINCEL);
         SolidBrush brochaNegra = new SolidBrush(Color.Black);
-        SolidBrush brochaAzul = new SolidBrush(Color.FromArgb(0, 102, 204));
+        SolidBrush brochaAzul = new SolidBrush(Color.FromArgb(153, 204, 255));
         SolidBrush brochaVerde = new SolidBrush(Color.FromArgb(77, 255, 77));
         SolidBrush brochaRoja = new SolidBrush(Color.FromArgb(255, 92, 51));
-        SolidBrush brochaCeleste = new SolidBrush(Color.FromArgb(153, 204, 255));
+        SolidBrush brochaCeleste = new SolidBrush(Color.FromArgb(230, 242, 255));
 
 
         public Form1() {
@@ -50,24 +50,13 @@ namespace Recorridos {
         /// Dibuja el tablero del tamaño seleccionado
         /// </summary>
         private void VaciarTablero() {
-            //Graphics g = TableroPanel.CreateGraphics();
-            //g.Clear(COLOR_TABLERO);
-
-            //int width = TableroPanel.Width;
-            //int height = TableroPanel.Height;
-            //float ancho = width / tamano;
-            //float alto = height / tamano;
-
-            //Pen pincel = new Pen(Color.Black, 2);
             tablero = new Tablero(tamano, tamano);
 
             for (int x = 0; x < tamano; x++) {
                 for (int y = 0; y < tamano; y++) {
                     tablero.SetEstado(x, y, Estado.libre);
-                    //g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                 }
             }
-
 
             this.TableroPanel.Invalidate();
         }
@@ -116,6 +105,8 @@ namespace Recorridos {
                             g.FillRectangle(brochaCeleste, xInicio, yInicio, anchoOffset, altoOffset);
                             break;
                     }
+
+                    g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                 }
             }
 
@@ -130,8 +121,6 @@ namespace Recorridos {
             MouseEventArgs ev = (MouseEventArgs)e;
 
             if (ev.Button != MouseButtons.Left) return;
-
-            //Graphics g = TableroPanel.CreateGraphics();
 
             float xOffset = TableroPanel.Width / tamano;
             float yOffset = TableroPanel.Height / tamano;
@@ -229,12 +218,11 @@ namespace Recorridos {
 
                 // Marca los nodos que se han visitado
                 HashSet<int> evaluados = controlador.GetEvaluados();
-                Console.WriteLine("EVAL: " + evaluados.Count);
+               
                 for (int i = 0; i < evaluados.Count; i++) {
                     int id = evaluados.ElementAt(i);
-                    Console.Write("VISITA: " + id);
                     if(tablero.GetEstado(id) == Estado.libre)
-                    tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
+                        tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
                 }
 
 
@@ -251,12 +239,6 @@ namespace Recorridos {
             // RepaintTablero();
             this.TableroPanel.Invalidate();
         }
-
-        private void Form1_Paint(object sender, PaintEventArgs e) {
-
-        }
-
-
 
         private void MarcarRecorrido(object sender, EventArgs e) {
             Console.WriteLine("ENTER");
@@ -300,11 +282,10 @@ namespace Recorridos {
         private void TableroPanel_MouseUp(object sender, MouseEventArgs e) {
             isPressed = false;
             TableroPanel_Click(sender, e);
-
         }
 
 
-        private void MarcarObstaculo(object sender, MouseEventArgs e) {
+        private void PonerObstaculos(object sender, MouseEventArgs e) {
             if (!isPressed) return;
 
             MouseEventArgs ev = (MouseEventArgs)e;
@@ -316,15 +297,13 @@ namespace Recorridos {
             int x = (int)Math.Ceiling(ev.X / xOffset) - 1;
             int y = (int)Math.Ceiling(ev.Y / yOffset) - 1;
 
-          
+            if (x < 0 || y < 0 || x >= tablero.Ancho || y >= tablero.Alto) return;
+
            tablero.SetEstado(x, y, Estado.ocupado);
 
             this.TableroPanel.Invalidate();
         }
 
-        private void MarcarRecorrido(object sender, MouseEventArgs e) {
-
-        }
 
     }
 

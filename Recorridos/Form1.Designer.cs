@@ -57,7 +57,7 @@ namespace Recorridos {
             this.TableroPanel.TabIndex = 0;
             this.TableroPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.TableroPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseDown);
-            this.TableroPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MarcarObstaculo);
+            this.TableroPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PonerObstaculos);
             this.TableroPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseUp);
             this.TableroPanel.Resize += new System.EventHandler(this.TableroPanel_Resize);
             // 
@@ -112,10 +112,12 @@ namespace Recorridos {
             // OrigenRB
             // 
             this.OrigenRB.AutoSize = true;
+            this.OrigenRB.Checked = true;
             this.OrigenRB.Location = new System.Drawing.Point(5, 19);
             this.OrigenRB.Name = "OrigenRB";
             this.OrigenRB.Size = new System.Drawing.Size(56, 17);
             this.OrigenRB.TabIndex = 8;
+            this.OrigenRB.TabStop = true;
             this.OrigenRB.Text = "Origen";
             this.OrigenRB.UseVisualStyleBackColor = true;
             // 
@@ -132,12 +134,10 @@ namespace Recorridos {
             // ObstaculoRB
             // 
             this.ObstaculoRB.AutoSize = true;
-            this.ObstaculoRB.Checked = true;
             this.ObstaculoRB.Location = new System.Drawing.Point(134, 19);
             this.ObstaculoRB.Name = "ObstaculoRB";
             this.ObstaculoRB.Size = new System.Drawing.Size(73, 17);
             this.ObstaculoRB.TabIndex = 10;
-            this.ObstaculoRB.TabStop = true;
             this.ObstaculoRB.Text = "Obstáculo";
             this.ObstaculoRB.UseVisualStyleBackColor = true;
             // 
@@ -169,7 +169,6 @@ namespace Recorridos {
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).EndInit();
             this.TipoNodo.ResumeLayout(false);
             this.TipoNodo.PerformLayout();

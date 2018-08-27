@@ -23,11 +23,9 @@ namespace Recorridos.Recorridos.Graph {
                     this.aristas[id, j] = SIN_CONECTAR;
                 }
 
-
                 int x =  id % ancho;
                 int y = (int)(id / ancho);
-
-                Console.WriteLine("NODO: " + id + "(" + x + "," + y + ")");
+                
                 Nodo nodo = new Nodo(id, x, y);
                 this.Nodos[id] = nodo;
             }

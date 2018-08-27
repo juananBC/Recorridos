@@ -50,7 +50,7 @@ namespace Recorridos.Recorridos.Pathfinding {
                 }
             }
 
-            Console.WriteLine("El grafo es: \n" + grafo.ToString());
+            //Console.WriteLine("El grafo es: \n" + grafo.ToString());
         }
 
         public List<int> BuscarCamino() {
