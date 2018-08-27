@@ -19,6 +19,8 @@ namespace Recorridos {
         private const int RADIO_NODO = 20;
         private static Color COLOR_TABLERO = Color.White;
 
+        private bool isPressed = false;
+
         private int tamano;
         private Tablero tablero;
 
@@ -34,7 +36,6 @@ namespace Recorridos {
 
 
         public Form1() {
-
             InitializeComponent();
 
             tamano = Decimal.ToInt32(tamanoTablero.Value);
@@ -42,40 +43,39 @@ namespace Recorridos {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            DibujarTablero();
+            VaciarTablero();
         }
      
         /// <summary>
         /// Dibuja el tablero del tamaño seleccionado
         /// </summary>
-        private void DibujarTablero() {
-            Graphics g = TableroPanel.CreateGraphics();
-            g.Clear(COLOR_TABLERO);
+        private void VaciarTablero() {
+            //Graphics g = TableroPanel.CreateGraphics();
+            //g.Clear(COLOR_TABLERO);
 
-            int width = TableroPanel.Width;
-            int height = TableroPanel.Height;
-            float ancho = width / tamano;
-            float alto = height / tamano;
+            //int width = TableroPanel.Width;
+            //int height = TableroPanel.Height;
+            //float ancho = width / tamano;
+            //float alto = height / tamano;
 
-            Pen pincel = new Pen(Color.Black, 2);
+            //Pen pincel = new Pen(Color.Black, 2);
             tablero = new Tablero(tamano, tamano);
 
             for (int x = 0; x < tamano; x++) {
                 for (int y = 0; y < tamano; y++) {
                     tablero.SetEstado(x, y, Estado.libre);
-                    g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
+                    //g.DrawRectangle(pincel, x * ancho, y * alto, ancho, alto);
                 }
             }
 
-            this.Invalidate();
+
+            this.TableroPanel.Invalidate();
         }
 
         /// <summary>
         /// Redibuja el tablero, manteniendo el estado en el que se encuentra.
         /// </summary>
-        private void RepaintTablero() {
-            Graphics g = TableroPanel.CreateGraphics();
-            g.Clear(COLOR_TABLERO);
+        private void RepaintTablero(Graphics g) {
 
             int width = TableroPanel.Width;
             int height = TableroPanel.Height;
@@ -119,18 +119,17 @@ namespace Recorridos {
                 }
             }
 
-            this.Invalidate();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e) {
-            RepaintTablero();
+            RepaintTablero(e.Graphics);
         }
 
  
         private void TableroPanel_Click(object sender, EventArgs e) {
             MouseEventArgs ev = (MouseEventArgs)e;
 
-            Graphics g = TableroPanel.CreateGraphics();
+            //Graphics g = TableroPanel.CreateGraphics();
 
             float xOffset = TableroPanel.Width / tamano;
             float yOffset = TableroPanel.Height / tamano;
@@ -147,6 +146,9 @@ namespace Recorridos {
             nodo[0] = x;
             nodo[1] = y;
 
+            if (x < 0 || y < 0 || x >= tablero.Ancho || y >= tablero.Alto)
+                return;
+
             switch (tipoNodo) {
                 case ORIGEN:
                     // Resetea el origen anterior
@@ -157,7 +159,6 @@ namespace Recorridos {
 
                     tablero.Origen = tablero.GetId(x, y);
                     tablero.SetEstado(x, y, Estado.origen);
-
                     break;
 
                 case DESTINO:
@@ -180,10 +181,10 @@ namespace Recorridos {
                 default:
                     tablero.SetEstado(x, y, Estado.libre);
                     break;
-            }
-            
+            }            
 
-            RepaintTablero();
+            // Obliga a repintar el tablero. Llama al metodo Paint del panel.
+           this.TableroPanel.Invalidate();
 
         }
 
@@ -193,7 +194,9 @@ namespace Recorridos {
         }
 
         private void TableroPanel_Resize(object sender, EventArgs e) {
-            RepaintTablero(); 
+
+            // RepaintTablero();
+            this.TableroPanel.Invalidate();
         }
 
         /// <summary>
@@ -206,7 +209,7 @@ namespace Recorridos {
             if (aux <= 4) tamanoTablero.Value = 4;
 
             tamano = Decimal.ToInt32(tamanoTablero.Value);
-            DibujarTablero();
+            VaciarTablero();
         }
 
         private void Click_iniciarRecorrido(object sender, EventArgs e) {
@@ -235,13 +238,59 @@ namespace Recorridos {
 
             }
 
-            RepaintTablero();
+
+            // RepaintTablero();
+            this.TableroPanel.Invalidate();
         }
 
         private void Reiniciar_Click(object sender, EventArgs e) {
             tablero.Liberar();
-            RepaintTablero();
+
+            // RepaintTablero();
+            this.TableroPanel.Invalidate();
         }
+
+        private void Form1_Paint(object sender, PaintEventArgs e) {
+
+        }
+
+
+
+        private void TableroPanel_MouseClick(object sender, EventArgs e) {
+            Console.WriteLine("ENTER");
+            if (!isPressed) return;
+
+            tablero.QuitarRecorrido();
+
+            if (tablero.Origen >= 0 && tablero.Destino >= 0) {
+
+                Controlador controlador = new Controlador(tablero);
+                List<int> camino = controlador.BuscarCamino();
+
+                // Marca los nodos que forman el camino
+                for (int i = 1; i < camino.Count - 1; i++) {
+                    tablero.SetEstado(camino[i], Estado.visitado);
+                }
+
+                // Marca los nodos que se han visitado
+                HashSet<int> evaluados = controlador.GetEvaluados();
+                Console.WriteLine("EVAL: " + evaluados.Count);
+                for (int i = 0; i < evaluados.Count; i++) {
+                    int id = evaluados.ElementAt(i);
+                    Console.Write("VISITA: " + id);
+                    if (tablero.GetEstado(id) == Estado.libre)
+                        tablero.SetEstado(evaluados.ElementAt(i), Estado.evaluado);
+                }
+
+
+            }
+
+
+            // RepaintTablero();
+            this.TableroPanel.Invalidate();
+        }
+
+        
     }
 
 }

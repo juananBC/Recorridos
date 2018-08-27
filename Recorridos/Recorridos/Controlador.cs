@@ -2,6 +2,7 @@
 using Recorridos.Recorridos.Graph;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace Recorridos.Recorridos.Pathfinding {
         private Grafo grafo;
         private Tablero tablero;
         private A_Star pathfinding;
+
+        private Stopwatch sw;
 
         public Controlador(Tablero tablero) {
             this.tablero = tablero;
@@ -51,12 +54,16 @@ namespace Recorridos.Recorridos.Pathfinding {
         }
 
         public List<int> BuscarCamino() {
+            sw = Stopwatch.StartNew();
 
             pathfinding = new A_Star(tablero.Origen, tablero.Destino, grafo);
             pathfinding.Run();
-            pathfinding.PrintCamino();
-
             List<int> recorrido  = pathfinding.Camino;
+
+            sw.Stop();
+            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+
+            pathfinding.PrintCamino();
             return recorrido;
         }
 

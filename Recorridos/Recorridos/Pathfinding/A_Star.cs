@@ -144,7 +144,6 @@ namespace Recorridos.Recorridos.Pathfinding {
             }
             return menor;
         }
-
         
         public int NumNodos { get => numNodos; set => numNodos = value; }
         public int Origen { get => origen; set => origen = value; }

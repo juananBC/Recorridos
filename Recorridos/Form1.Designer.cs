@@ -1,4 +1,6 @@
-﻿namespace Recorridos {
+﻿
+
+namespace Recorridos {
     partial class Form1 {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,7 +30,7 @@
         /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent() {
-            this.TableroPanel = new System.Windows.Forms.Panel();
+            this.TableroPanel = new Recorridos.Graficos.PanelCustom();
             this.tamanoTablero = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,6 +57,7 @@
             this.TableroPanel.TabIndex = 0;
             this.TableroPanel.Click += new System.EventHandler(this.TableroPanel_Click);
             this.TableroPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.TableroPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TableroPanel_MouseClick);
             this.TableroPanel.Resize += new System.EventHandler(this.TableroPanel_Resize);
             // 
             // tamanoTablero
@@ -161,9 +164,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tamanoTablero);
             this.Controls.Add(this.TableroPanel);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).EndInit();
             this.TipoNodo.ResumeLayout(false);
             this.TipoNodo.PerformLayout();
@@ -173,8 +178,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel TableroPanel;
         private System.Windows.Forms.NumericUpDown tamanoTablero;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
@@ -183,6 +186,7 @@
         private System.Windows.Forms.RadioButton DestinoRB;
         private System.Windows.Forms.RadioButton ObstaculoRB;
         private System.Windows.Forms.GroupBox TipoNodo;
+        private Recorridos.Graficos.PanelCustom TableroPanel;
     }
 }
 
