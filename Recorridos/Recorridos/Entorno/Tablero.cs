@@ -22,8 +22,6 @@ namespace Recorridos.Recorridos.Entorno {
             this.alto = alto;
 
             casillas = new Estado[ancho, alto];
-
-            // Inicia casillas
             for (int x = 0; x < ancho; x++) {
                 for (int y = 0; y < alto; y++) {
                     casillas[x, y] = Estado.libre;
@@ -74,9 +72,7 @@ namespace Recorridos.Recorridos.Entorno {
             set => destino = value; 
         }
         public Estado[,] Casillas { get => casillas; set => casillas = value; }
-
-        //public Grafo Graph { get => grafo; set => grafo = value; }
-
+        
         /// <summary>
         /// Transforma la posición x, y en un ID secuencial
         /// </summary>

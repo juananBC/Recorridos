@@ -44,7 +44,7 @@ namespace Recorridos.Recorridos.Graph {
 
                 Nodo nodo = new Nodo(id, x, y);
                 this.Nodos[id] = nodo;
-                this.listaNodos[id] = null; // new NodoLista(id, SIN_CONECTAR);
+                this.listaNodos[id] = null; 
             }
 
         }
