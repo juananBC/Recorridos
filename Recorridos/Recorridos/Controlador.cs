@@ -16,9 +16,9 @@ namespace Recorridos.Recorridos.Pathfinding {
 
         private Stopwatch sw;
 
-        public Controlador(Tablero tablero) {
+        public Controlador(Tablero tablero, bool isGraphList) {
             this.tablero = tablero;
-            IniciarGrafo(tablero);
+            IniciarGrafo(tablero, isGraphList);
         }
 
         public void CambiarDestino(int id) {
@@ -29,8 +29,12 @@ namespace Recorridos.Recorridos.Pathfinding {
             tablero.Origen = id;
         }
 
-        private void IniciarGrafo(Tablero tablero) {
-            grafo = new Matriz(tablero.Alto, tablero.Ancho);
+        private void IniciarGrafo(Tablero tablero, bool isGraphList) {
+            if (isGraphList) {
+                grafo = new Lista(tablero.Alto, tablero.Ancho);
+            } else {
+                grafo = new Matriz(tablero.Alto, tablero.Ancho);
+            }
 
             for (int x = 0; x < tablero.Ancho; x++) {
                 for (int y = 0; y < tablero.Alto; y++) {
@@ -50,7 +54,7 @@ namespace Recorridos.Recorridos.Pathfinding {
                 }
             }
 
-            //Console.WriteLine("El grafo es: \n" + grafo.ToString());
+          //  Console.WriteLine("El grafo es: \n" + grafo.ToString());
         }
 
         public List<int> BuscarCamino() {

@@ -8,7 +8,9 @@ namespace Recorridos.Recorridos.Graph {
 
     abstract class Grafo {
 
-         private Nodo[] nodos;
+        public const float SIN_CONECTAR = -1;
+
+        private Nodo[] nodos;
 
         public void PonerObstaculo(int id) {
             Nodo nodoRemove = GetNodo(id);

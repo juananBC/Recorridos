@@ -39,6 +39,7 @@ namespace Recorridos {
             this.DestinoRB = new System.Windows.Forms.RadioButton();
             this.ObstaculoRB = new System.Windows.Forms.RadioButton();
             this.TipoNodo = new System.Windows.Forms.GroupBox();
+            this.cbGrafoLista = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.tamanoTablero)).BeginInit();
             this.TipoNodo.SuspendLayout();
             this.SuspendLayout();
@@ -154,11 +155,25 @@ namespace Recorridos {
             this.TipoNodo.TabStop = false;
             this.TipoNodo.Text = "Tipo de nodo";
             // 
+            // cbGrafoLista
+            // 
+            this.cbGrafoLista.AutoSize = true;
+            this.cbGrafoLista.Checked = true;
+            this.cbGrafoLista.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbGrafoLista.Location = new System.Drawing.Point(448, 405);
+            this.cbGrafoLista.Name = "cbGrafoLista";
+            this.cbGrafoLista.Size = new System.Drawing.Size(73, 17);
+            this.cbGrafoLista.TabIndex = 12;
+            this.cbGrafoLista.Text = "Grafo lista";
+            this.cbGrafoLista.UseVisualStyleBackColor = true;
+            this.cbGrafoLista.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbGrafoLista);
             this.Controls.Add(this.TipoNodo);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
@@ -187,6 +202,7 @@ namespace Recorridos {
         private System.Windows.Forms.RadioButton ObstaculoRB;
         private System.Windows.Forms.GroupBox TipoNodo;
         private Recorridos.Graficos.PanelCustom TableroPanel;
+        private System.Windows.Forms.CheckBox cbGrafoLista;
     }
 }
 

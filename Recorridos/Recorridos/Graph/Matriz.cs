@@ -8,7 +8,6 @@ namespace Recorridos.Recorridos.Graph {
 
     class Matriz : Grafo {
 
-        private const float SIN_CONECTAR = 0;
 
         private float[,] aristas;
 

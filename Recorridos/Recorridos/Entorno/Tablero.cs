@@ -43,7 +43,9 @@ namespace Recorridos.Recorridos.Entorno {
         }
 
         public void SetEstado(int x, int y, Estado estado) {
-             casillas[x, y] = estado;
+            if (casillas[x, y] == Estado.origen) Origen = -1;
+            if (casillas[x, y] == Estado.destino) Destino = -1;
+            casillas[x, y] = estado;
         }
 
         public void SetEstado(int id, Estado estado) {

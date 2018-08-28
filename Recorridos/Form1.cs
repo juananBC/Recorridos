@@ -31,6 +31,7 @@ namespace Recorridos {
         private int tamano;
         private bool isPressed;
         private Tablero tablero;
+        private bool isGraphList;
 
         public Form1() {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace Recorridos {
             tamano = Decimal.ToInt32(tamanoTablero.Value);
             tablero = new Tablero(tamano, tamano);
             isPressed = false;
+            isGraphList = this.cbGrafoLista.Checked;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -201,7 +203,7 @@ namespace Recorridos {
 
             if (tablero.Origen >= 0 && tablero.Destino >= 0) {
 
-                Controlador controlador = new Controlador(tablero);
+                Controlador controlador = new Controlador(tablero, isGraphList);
                 List<int> camino = controlador.BuscarCamino();
 
                 // Marca los nodos que forman el camino
@@ -235,7 +237,7 @@ namespace Recorridos {
 
             if (tablero.Origen >= 0 && tablero.Destino >= 0) {
 
-                Controlador controlador = new Controlador(tablero);
+                Controlador controlador = new Controlador(tablero, isGraphList);
                 List<int> camino = controlador.BuscarCamino();
 
                 // Marca los nodos que forman el camino
@@ -271,6 +273,8 @@ namespace Recorridos {
         private void PonerObstaculos(object sender, MouseEventArgs e) {
             if (!isPressed) return;
 
+            tablero.QuitarRecorrido();
+
             MouseEventArgs ev = (MouseEventArgs)e;
             if (ev.Button != MouseButtons.Right) return;
 
@@ -282,12 +286,14 @@ namespace Recorridos {
 
             if (x < 0 || y < 0 || x >= tablero.Ancho || y >= tablero.Alto) return;
 
-           tablero.SetEstado(x, y, Estado.ocupado);
+            tablero.SetEstado(x, y, Estado.ocupado);
 
             this.TableroPanel.Invalidate();
         }
 
-
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) {
+            isGraphList = this.cbGrafoLista.Checked;
+        }
     }
 
 }
